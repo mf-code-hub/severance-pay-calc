@@ -1,0 +1,24 @@
+FROM node:lts-alpine
+
+# RUN apk update && apk add -y yarn
+RUN apk --no-cache add yarn --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community
+
+ENV NODE_ENV=development
+WORKDIR "/"
+
+# RUN yarn global add typescript
+
+COPY ./package.json ./
+# COPY ./yarn.lock ./
+
+# ENV PATH="$PATH:/opt/yarn-v1.16.0/bin"
+# ENV PATH="$PATH:`yarn global bin`"
+
+RUN yarn install
+
+# RUN echo http://repository.fit.cvut.cz/mirrors/alpine/v3.8/main > /etc/apk/repositories; \
+#     echo http://repository.fit.cvut.cz/mirrors/alpine/v3.8/community >> /etc/apk/repositories
+
+COPY . ./
+
+CMD [ "yarn", "run", "server" ]

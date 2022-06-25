@@ -1,0 +1,19 @@
+FROM node:14.16-alpine
+
+ENV NODE_ENV=development
+WORKDIR "/app"
+
+# RUN yarn global add typescript
+# RUN yarn global add less
+
+COPY ./package.json ./
+# COPY ./yarn.lock ./
+
+RUN yarn install
+
+
+COPY . ./app
+
+# RUN lessc --js ./src/styles/theme.less ./src/styles/theme.css
+
+# CMD [ "yarn", "start" ]
